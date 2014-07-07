@@ -37,7 +37,7 @@ def sepnums(a):#Extract numbers from a space separated list of numbers entered a
 			b=""#reset b
 		i=i+1
 	print "The number of numbers in the entered string is",c
-def sniffnums(a):
+def sniffnums(a): #This function doesn't deal nicely with functions. See the numbers_in_strings.py file.
 	l=len(a)#if there are continuous digits in a string print them as a number. Else print out the digits. Count how many numbers are present
 	i=0
 	c=0#count numbers
@@ -46,8 +46,8 @@ def sniffnums(a):
 		try:
 			n=int(a[i]) #this will check if a[i] is an integer or not.
 			p=i+1#storing the index we found a number to start a search
-			while True:#while p<l  .. while True is absolutely okay. If we reach end of the string, incase there is an error the try-except deals with it the same way as if we didn't find a number. But,if you want to avoid that kind of tackling end of the string, you could replace with while p<l, this is so that the index doesn't cross l-1, this immediately bypasses the while loop (incase the last character in a string is a number). But then, there is no statement to increment i unless you uncomment & activate the if statement under if (n!=None). That statement has a p==l condition, because only then is when p=p+1 & [p=i+1 with i=p] is bypassed.
-				try:#Once we find a number, we look ahead around it, if we find another number we continue looking ahead, untill we dont find a number. Then we quit, leaving the search at the position we left.
+			while True:#while p<l  .. while True is absolutely okay. If we reach end of the string, in-case there is an error the try-except deals with it the same way as if we didn't find a number. But,if you want to avoid that kind of tackling end of the string, you could replace with while p<l, this is so that the index doesn't cross l-1, this immediately bypasses the while loop (incase the last character in a string is a number). But then, there is no statement to increment i unless you uncomment & activate the if statement under if (n!=None). That statement has a p==l condition, because only then is when p=p+1 & [p=i+1 with i=p] is bypassed.
+				try:#Once we find a number, we look ahead around it, if we find another number we continue looking ahead, until we don't find a number. Then we quit, leaving the search at the position we left.
 					n=n*10+(int(a[p]))#add next digit if present to end of existing n
 					p=p+1
 				except:
@@ -58,7 +58,7 @@ def sniffnums(a):
 				c=c+1
 				print n
 				n=None
-			#if (p==l)"
+			#if (p==l)" #if you skip this and there is a number at the end of the string, the while loop will be skipped, assuming you put while p<l to avoid try catching an error on accessing a character beyond the end of the string i.e a[l]. In that case, i will be l-1, while p will be l. To stop the loop from cycling endlessly we need to give the value of p to i.
 			#	i=p
 		except:
 			i=i+1
@@ -161,7 +161,7 @@ def searchin2(a,b):#this is the same function as above except that we use a whil
 		print "\nFound",c,"instances in total" #the \n is to shift to a new line, because our found instances statements end with a comma.
 def searchin3(a,b):
 #this function is different in that it uses the built in string method string1.find(string2,start-index) to find out the search phrase in the given string.
-#we find the shorter phrase first, and then search it in the longer sring. The reason for this function is that, maybe it is a bit faster than using the method we use.. index->Slice->Compare->Incr. Index-> repeat.
+#we find the shorter phrase first, and then search it in the longer string. The reason for this function is that, maybe it is a bit faster than using the method we use.. index->Slice->Compare->Incr. Index-> repeat.
 	l_a=len(a)
 	l_b=len(b)
 	if (a=="")or(b==""):
@@ -176,7 +176,7 @@ def searchin3(a,b):
 			if(f_i!=-1):#if find cannot find a string it returns -1
 				if (c==0):
 					print "Found an instance of the string \"",b,"\" at position: ",
-				print f_i+1,#f_i is the index (sarting to count from 0 at the beginning of the line at which the phrase was found.)
+				print f_i+1,#f_i is the index (starting to count from 0 at the beginning of the line at which the phrase was found.)
 				c=c+1
 				i=f_i+1 #jump to the next character and start the search. If you start the search at f_i itself, you'll find the same index again..
 			if(f_i==-1):
@@ -201,8 +201,8 @@ def searchin3(a,b):
 			print "String \"",a,"\" is not the same as string \"",b,"\""
 	if(l_a!=l_b)&(a!="")&(b!=""):
 		print "\nFound",c,"instances in total"
-while True:
-	a=raw_input("Enter String 1:")
-	b=raw_input("Enter String 2:")
-	searchin(a,b)
-#sniffnums(raw_input())
+#while True:
+#	a=raw_input("Enter String 1:")
+#	b=raw_input("Enter String 2:")
+#	searchin(a,b)
+sniffnums(raw_input())
