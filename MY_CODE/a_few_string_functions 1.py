@@ -153,3 +153,45 @@ def searchin2(a,b):#this is the same function as above except that we use a whil
 			print "String \"",a,"\" is not the same as string \"",b,"\""
 	if(l_a!=l_b)&(a!="")&(b!=""): #Don't print if length of a is same as b, or any of a & b are empty strings
 		print "\nFound",c,"instances in total" #the \n is to shift to a new line, because our found instances statements end with a comma.
+def searchin3(a,b):
+#this function is different in that it uses the built in string method string1.find(string2,start-index) to find out the search phrase in the given string.
+#we find the shorter phrase first, and then search it in the longer sring. The reason for this function is that, maybe it is a bit faster than using the method we use.. index->Slice->Compare->Incr. Index-> repeat.
+	l_a=len(a)
+	l_b=len(b)
+	if (a=="")or(b==""):
+		print "Empty search phrase"
+	elif (a=="")&(b==""):
+		print "Both strings are empty"
+	elif (l_a>l_b):
+		i=0
+		c=0
+		while (i<l_a):
+			f_i=a.find(b,i)
+			if(f_i!=-1):#if find cannot find a string it returns -1
+				if (c==0):
+					print "Found an instance of the string \"",b,"\" at position: ",
+				print f_i+1,#f_i is the index (sarting to count from 0 at the beginning of the line at which the phrase was found.)
+				c=c+1
+				i=f_i+1 #jump to the next character and start the search. If you start the search at f_i itself, you'll find the same index again..
+			if(f_i==-1):
+				break #This statement is to break the loop in case the search phrase is not found in the rest of the string.
+	elif(l_b>l_a):
+		i=0
+		c=0
+		while (i<l_b):
+			f_i=b.find(a,i)
+			if(f_i!=-1):#if find cannot find a string it returns -1
+				if (c==0):
+					print "Found an instance of the string \"",a,"\" at position: ",
+				print f_i+1,
+				c=c+1
+				i=f_i+1 #jump to the next character and start the search. If you start the search at f_i itself, you'll find the same index again..
+			if(f_i==-1):
+				break #This statement is to break the loop in case the search phrase is not found in the rest of the string.
+	elif(l_b==l_a):
+		if(a==b):
+			print "String \"",a,"\" is the same as string \"",b,"\""
+		if(a!=b):
+			print "String \"",a,"\" is not the same as string \"",b,"\""
+	if(l_a!=l_b)&(a!="")&(b!=""):
+		print "\nFound",c,"instances in total"
