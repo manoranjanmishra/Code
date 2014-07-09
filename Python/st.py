@@ -37,7 +37,7 @@ def sepnums(a):#Extract numbers from a space separated list of numbers entered a
 			b=""#reset b
 		i=i+1
 	print "The number of numbers in the entered string is",c
-def sniffnums(a): #This function doesn't deal nicely with functions. See the numbers_in_strings.py file.
+def sniffnums(a): #This function doesn't deal nicely with fractions. It even doesn't understand + & minus signs See the numbers_in_strings.py file.
 	l=len(a)#if there are continuous digits in a string print them as a number. Else print out the digits. Count how many numbers are present
 	i=0
 	c=0#count numbers
