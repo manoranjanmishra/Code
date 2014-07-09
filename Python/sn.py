@@ -99,3 +99,31 @@ def sniffnums4(a):#We've only fixed a little bit in the program above, by lettin
 		except:
 			i=i+1
 	print "Number of numbers: ",c
+def sniffnums5(a):#this is intended to be a basic function that respects decimal points. We won't be using slicing here. However it doesnt understand + & - signs.
+	l=len(a)
+	i=0
+	c=0
+	while(i<l):
+		c_d=0
+		p=0	#after we've crossed a decimal point , p tells us how many digits we have crossed after the decimal point.
+		try:
+			if(a[i]!="."):
+				int(a[i])
+			else:
+				c_d=c_d+1
+				p=p+1
+			p=i+1
+			while True:
+				if(a[p]!="."):
+					int(a[p])
+				else:
+					c_d=c_d+1
+				if(c_d==2):
+					break
+				
+				p=p+1
+				#if we encounter a dot, how we add subsequent numbers changes.
+				
+		except:
+			i=i+1
+	print "Number of Numbers: ",c
