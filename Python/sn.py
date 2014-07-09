@@ -66,40 +66,28 @@ def sniffnums3(a): #fixing the problem we had with decimal points.
 		print "\nThe entered string had",c,"numbers"
 	if (c==0):
 		print "The entered string had no numbers in it"
-def sniffnums4(a):
+def sniffnums4(a):#We've only fixed a little bit in the program above, by letting in + & - signs initially too.
 	l=len(a)
 	i=0
 	c=0
 	while (i<l):
-		c_d=0#our counter for .
-		c_s=0#our counter for + or -
+		d=0#our counter for .
 		try:
-			if(a[i]!=".")&(a[i]!="+")&(a[i]!="-"):
+			if(a[i]!=".")&(a[i]!="+")&(a[i]!="-"):#Allow a plus or minus sign at the start. After that in the subsequent search, don't allow any sign, except for dots. Actually this code was written with a lot of extra if statements. Turns out, if you let a sign in at a later stage, it creates a mess, which no number of if-statement-filtrations can fix.
 				int(a[i])
 			else:
 				if(a[i]=="."):
-					c_d=c_d+1
-				if(a[i]=="+")or(a[i]=="-"):
-					c_s=c_s+1
+					d=d+1
 			p=i+1	#right now, we either have a dot, plus, minus or a number at the i position. If the counter for *any* of those symbols becomes 2, we stop searching further.
 			while True:
 				try:
-					if(a[p]!=".")&(a[p]!="+")&(a[p]!="-"):
+					if(a[p]!="."):#&(a[p]!="+")&(a[p]!="-"):
 						int(a[p])
 					else:
 						if(a[p]=="."):
-							c_d=c_d+1
-						if(a[p]=="+")or(a[p]=="-"):
-							c_s=c_s+1
-					if(c_d==2)or(c_s==2):
+							d=d+1
+					if(d==2):
 						break
-					if(c_s==1):
-						if(c_d==1):
-							p=p+1
-							continue
-					if(c_d==1):
-						if(c_s==1):	#after a decimal point, a minus or plus sign signals the end of this number. However, a plus sign can come before a dot.
-							break
 					p=p+1
 				except:
 					break
