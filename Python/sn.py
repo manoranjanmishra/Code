@@ -39,7 +39,7 @@ def sniffnums3(a): #fixing the problem we had with decimal points.
 			if (a[i]!="."):
 				int(a[i])	#Skipped if a[i] is a dot. So, now we have both numbers and dots.
 			else:
-				d=d+1	#d is our counter for dots. We increase it we find a dot.
+				d=d+1	#d is our counter for dots. We increase it when we find a dot.
 			p=i+1
 			while True:
 				try:
@@ -52,7 +52,7 @@ def sniffnums3(a): #fixing the problem we had with decimal points.
 					p=p+1
 				except:
 						break
-			#now p points to either a character or a dot, and between p & i there are integers and atmost one dot.
+			#now p points to either a character or a dot, and between p & i there are integers and at-most one dot.
 			if(p!=(i+1))or(d==0):#if(p==(i+1)), then probably there were two consecutive dots.. or there is a single digit number. If its a single digit number, then d=0
 				n=float(a[i:p])
 				c=c+1
@@ -66,3 +66,48 @@ def sniffnums3(a): #fixing the problem we had with decimal points.
 		print "\nThe entered string had",c,"numbers"
 	if (c==0):
 		print "The entered string had no numbers in it"
+def sniffnums4(a):
+	l=len(a)
+	i=0
+	c=0
+	while (i<l):
+		c_d=0#our counter for .
+		c_s=0#our counter for + or -
+		try:
+			if(a[i]!=".")&(a[i]!="+")&(a[i]!="-"):
+				int(a[i])
+			else:
+				if(a[i]=="."):
+					c_d=c_d+1
+				if(a[i]=="+")or(a[i]=="-"):
+					c_s=c_s+1
+			p=i+1	#right now, we either have a dot, plus, minus or a number at the i position. If the counter for *any* of those symbols becomes 2, we stop searching further.
+			while True:
+				try:
+					if(a[p]!=".")&(a[p]!="+")&(a[p]!="-"):
+						int(a[p])
+					else:
+						if(a[p]=="."):
+							c_d=c_d+1
+						if(a[p]=="+")or(a[p]=="-"):
+							c_s=c_s+1
+					if(c_d==2)or(c_s==2):
+						break
+					if(c_s==1):
+						if(c_d==1):
+							p=p+1
+							continue
+					if(c_d==1):
+						if(c_s==1):	#after a decimal point, a minus or plus sign signals the end of this number. However, a plus sign can come before a dot.
+							break
+					p=p+1
+				except:
+					break
+			#now between p & i there is a string consisting of at most 1 dot & one sign. Moreover, the sign comes before the dot.
+			num=float(a[i:p])
+			c=c+1
+			print num
+			i=p
+		except:
+			i=i+1
+	print "Number of numbers: ",c
