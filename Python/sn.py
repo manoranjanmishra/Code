@@ -106,7 +106,7 @@ def sniffnums4(a):#We've only fixed a little bit in the program above, by lettin
 		print "\nThe entered string had",c,"numbers"
 	if (c==0):
 		print "The entered string had no numbers in it"
-def sniffnums5(a):#this is intended to be a basic function that respects decimal points. We won't be using slicing here.However, this program doesn't understand signs.
+def sniffnums5(a):#this is intended to be a basic function that respects decimal points. We won't be using slicing here.
 	l=len(a)
 	i=0
 	c=0
@@ -114,20 +114,23 @@ def sniffnums5(a):#this is intended to be a basic function that respects decimal
 		c_d=0
 		exd=0	#after we've crossed a decimal point , exd tells us how many digits we have crossed after the decimal point.
 		n=None
+		sign=1
 		try:
-			if(a[i]!="."):
+			if(a[i]!=".")&(a[i]!="+")&(a[i]!="-"):
 				n=int(a[i])
 			else:
 				if(a[i]=="."):
 					c_d=c_d+1
+				if(a[i]=="-"):
+					sign=-1
 			p=i+1
 			while True:
 				try:
 					if(a[p]!="."):
 						int(a[p])
+						if(n==None):
+								n=0	#we've found an integer, and if still n=None, now is a good time to initialise it before we do any maths with it. Or else, all math expressions will cause an error. ##Since most of the math is inside try-except statements, the errors wont show.
 						if(c_d==1):
-							if(p==(i+1)):
-								n=0	#if we encounter a dot at the beginning of a number then set n to zero to avoid errors with the next statement. Or else, since n is initialised to None, we get a adding None with Integer error. However the initialisation is done only if the character after the dot is a number. If we encounter a dot within a number, the n=0 wont be executed since p!=i+1 in that case.
 							exd=exd+1
 							n=n+((int(a[p]))*(10**(0-exd)))
 						else:
@@ -141,6 +144,7 @@ def sniffnums5(a):#this is intended to be a basic function that respects decimal
 					break
 			#we now have a number stored in n and p points to a character.
 			if(n!=None):
+				n=n*sign
 				if(c==0):
 					print "The numbers in the entered string are: "
 				print n
