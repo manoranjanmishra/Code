@@ -94,11 +94,11 @@ def sniffnums4(a):#We've only fixed a little bit in the program above, by lettin
 				except:
 					break
 			#now between p & i there is a string consisting of at most 1 dot & one sign. Moreover, the sign comes before the dot.
-			n=float(a[i:p])
+			n=float(a[i:p])#if you skip this, and directly print the string slice, a[i:p] you'll also print the signs as they are in the string.
 			if(c==0):
 				print "The numbers in the entered string are: "
 			c=c+1
-			print n
+			print n	#to also print signs, and include the zeroes before a number this code normally omits, replace n by a[i:p]
 			i=p
 		except:
 			i=i+1
