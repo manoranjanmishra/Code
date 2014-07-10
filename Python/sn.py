@@ -1,7 +1,8 @@
 #An alternate way to sniff numbers using slice
 #The sniff nums function fails if you pass it a number with a decimal part.
 #These functions try to fix that in different ways. The easiest way is sniffnums*
-def sniffnums2(a): #Rewriting the same function as sniffnums, but using slice & float to convert from string to number.
+#Each function has a statement that prints the number sniffed from the string. If you want the numbers on the same line, then put a comma at the end. Else remove it.
+def sniffnums2(a): #Rewriting the same function as sniffnums, but using slice & int to convert from string to number.
 	l=len(a)
 	i=0
 	c=0
@@ -17,9 +18,10 @@ def sniffnums2(a): #Rewriting the same function as sniffnums, but using slice & 
 					#if the next character is not a number, break the loop. Now p points to the index of the character after the number (which is not a number).
 					break
 			#the value of i still points to where we found our first digit. Using i & p, take a slice of the string. Since we are here, a[p] is not a number, and so we can put the digits we've found, together & call it a number.
+			n=int(a[i:p])
 			if (c==0):
 				print "The numbers in the entered string are: "
-			print int(a[i:p]),
+			print n
 			c=c+1
 			i=p#Start off again from where the inner loop left it.
 		except:
@@ -55,10 +57,10 @@ def sniffnums3(a): #fixing the problem we had with decimal points.
 			#now p points to either a character or a dot, and between p & i there are integers and at-most one dot.
 			if(p!=(i+1))or(d==0):#if(p==(i+1)), then probably there were two consecutive dots.. or there is a single digit number. If its a single digit number, then d=0
 				n=float(a[i:p])
-				c=c+1
-				if (c==1):
+				if (c==0):
 					print "The numbers in the entered string are: "
-				print n, #if you want integers to look like integers, the you could use d to see if a[i:p] is an integer or floating point. d==0:integer, d==1:Fraction
+				c=c+1
+				print n #if you want integers to look like integers, the you could use d to see if a[i:p] is an integer or floating point. d==0:integer, d==1:Fraction
 			i=p #if a[i:p] is just a dot, ignore it. And, keep looking.
 		except:
 			i=i+1
@@ -81,7 +83,7 @@ def sniffnums4(a):#We've only fixed a little bit in the program above, by lettin
 			p=i+1	#right now, we either have a dot, plus, minus or a number at the i position. If the counter for *any* of those symbols becomes 2, we stop searching further.
 			while True:
 				try:
-					if(a[p]!="."):#&(a[p]!="+")&(a[p]!="-"):
+					if(a[p]!="."):
 						int(a[p])
 					else:
 						if(a[p]=="."):
@@ -92,38 +94,61 @@ def sniffnums4(a):#We've only fixed a little bit in the program above, by lettin
 				except:
 					break
 			#now between p & i there is a string consisting of at most 1 dot & one sign. Moreover, the sign comes before the dot.
-			num=float(a[i:p])
+			n=float(a[i:p])
+			if(c==0):
+				print "The numbers in the entered string are: "
 			c=c+1
-			print num
+			print n
 			i=p
 		except:
 			i=i+1
-	print "Number of numbers: ",c
-def sniffnums5(a):#this is intended to be a basic function that respects decimal points. We won't be using slicing here. However it doesnt understand + & - signs.
+	if (c!=0):
+		print "\nThe entered string had",c,"numbers"
+	if (c==0):
+		print "The entered string had no numbers in it"
+def sniffnums5(a):#this is intended to be a basic function that respects decimal points. We won't be using slicing here.However, this program doesn't understand signs.
 	l=len(a)
 	i=0
 	c=0
 	while(i<l):
 		c_d=0
-		p=0	#after we've crossed a decimal point , p tells us how many digits we have crossed after the decimal point.
+		exd=0	#after we've crossed a decimal point , exd tells us how many digits we have crossed after the decimal point.
+		n=None
 		try:
 			if(a[i]!="."):
-				int(a[i])
+				n=int(a[i])
 			else:
-				c_d=c_d+1
-				p=p+1
+				if(a[i]=="."):
+					c_d=c_d+1
 			p=i+1
 			while True:
-				if(a[p]!="."):
-					int(a[p])
-				else:
-					c_d=c_d+1
-				if(c_d==2):
+				try:
+					if(a[p]!="."):
+						int(a[p])
+						if(c_d==1):
+							if(p==(i+1)):
+								n=0	#if we encounter a dot at the beginning of a number then set n to zero to avoid errors with the next statement. Or else, since n is initialised to None, we get a adding None with Integer error. However the initialisation is done only if the character after the dot is a number. If we encounter a dot within a number, the n=0 wont be executed since p!=i+1 in that case.
+							exd=exd+1
+							n=n+((int(a[p]))*(10**(0-exd)))
+						else:
+							n=n*10+int(a[p])
+					else:
+						c_d=c_d+1
+					if(c_d==2):
+						break
+					p=p+1
+				except:
 					break
-				
-				p=p+1
-				#if we encounter a dot, how we add subsequent numbers changes.
-				
+			#we now have a number stored in n and p points to a character.
+			if(n!=None):
+				if(c==0):
+					print "The numbers in the entered string are: "
+				print n
+				c=c+1
+			i=p
 		except:
 			i=i+1
-	print "Number of Numbers: ",c
+	if (c!=0):
+		print "\nThe entered string had",c,"numbers"
+	if (c==0):
+		print "The entered string had no numbers in it"
