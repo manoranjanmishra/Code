@@ -67,7 +67,8 @@ def problem3_v4(n):
 			i=i-1
 		if(i==0):
 			return n
-print problem3_v4(int(raw_input()))
+#print problem3_v4(int(raw_input()))
 #The correct answer for 6008514755143 is 6857, and only v3 & v4 manages to find it. but even then, v3 takes >2.5hrs to find the prime factor for 60085147514345676 which is:10728049.
 #armed with the extra if statement, v4 takes under 15 seconds to get the answer.
 #587375025578562198297718910938239707254471237290013106178127520961352309631644955178500966891793997100526372324940868422271888065310848665509073304483846162673361601 is 13159 multiplied 40 times. v4 gets the answer in `5 secs. 13159 is a prime number.
+#862288769565461034187 is the product of 171317,171271,171529 & 171329.. all prime numbers. v4 finds the answer in ~10 secs.
