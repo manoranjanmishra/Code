@@ -1,5 +1,5 @@
 #computing a prime number findprime(). This function computes the n-th prime number, n is an argument of the function.
-#And a function isprime() , which checks if a number is prime.
+#And a function isprime() , which checks if a number is prime. Added another pair of functions which generate the n-th prime number, and prime factor finds out the (smallest)prime factors of a number by itself.
 
 ##Function:: isprime()
 #returns 1 or True if it is prime.
@@ -119,3 +119,36 @@ def findprime2(n):
 			break #not essential here, but if you write c<=n it is required, or else the loop will only stop when it finds the n+1th prime number.
 		a=a+1 #Don't forget this!
 	#that's it.
+	
+#The next two functions go together. And generate prime numbers.
+def primefactor(n):
+	while True:
+		i=n/2
+		while (i>0):
+			if(n%i==0):
+				if(i!=1):
+					return n/i
+					n=i
+				break
+			if((n%(((n/2)-i)+1))==0):
+				if ((((n/2)-i)+1)!=1):
+					return (((n/2)-i)+1)
+					n=n/(((n/2)-i)+1)
+					break
+			if(i<(((n/2)-i)+1)):
+				i=1
+				break
+			i=i-1
+		if(i==1):#then we have a prime number
+			return n	#since we have factored out every possible factor, this should be a prime number
+def primegen(n):
+	#generates all prime numbers upto the n-th prime number
+	c=0	#counter for primes
+	i=1
+	while True:
+		i=i+1
+		if(primefactor(i)==i):
+			print "#",(c+1),": ",i
+			c=c+1
+		if(c==n):
+			return "Done"
