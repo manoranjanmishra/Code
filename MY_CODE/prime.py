@@ -227,3 +227,23 @@ def prime_lists(n):
 				c=c+1
 	return primes[-1]#this returns only the last element of the list. If required, one can return any element or the entire list. One also has a stored list of primes after this function completes.
 	#Finds 10K primes in ~17s. 100k primes in >20min. This is quicker than our previous algorithms because we are checking against lesser numbers. For example, in the previous case even if we checked against 2, we'd check with 4 & then 8 & so on. But, here we check only against a list of co-prime (and also absolutely prime) factors. So, no repetition occurs.
+#The function below leaves out checking even more numbers than the functions above.
+def primegenrtr(n):
+	#this program generates the n-th prime. But, in this code, when we check for factors of a number i, we use the fat that if upto q, no factors have been found, none exist other than the number itself if q>n/q.
+	c=0	#count the generated prime numbers
+	i=1	#Start generating prime numbers from i
+	#a=[]	#this statement creates an empty list to store the generate the prime numbers.
+	while (c<n):
+		i=i+1	#one fault with this code is that if i starts with 1, 1 gets counted as a prime number.
+		j=1
+		while True:
+			if(i%j==0)&(j!=1):
+				break
+			if(j>(i/j)):	#if no factors have been found yet, none will be found beyond now. This makes the function check for even lesser numbers.
+				break
+			j=j+1
+		if(j>(i/j)):
+			a=i	#a=a+[i] Change it to this if you need to keep all the generated prime numbers. Replace this statement with what you want to do with the prime numbers. You can add, print etc.
+			c=c+1
+	return a	#this will merely return the last prime number.
+#This function computes the first 1,000,000 primes in >25min & 100,000 primes in 1:05s. And, 10k primes in 5s. The 1 millionth prime is 15485863. The 100,000th prime is 1299709. The 10,000th prime is 104729.
