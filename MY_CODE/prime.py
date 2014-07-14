@@ -141,6 +141,7 @@ def primefactor(n):
 			i=i-1
 		if(i==1):#then we have a prime number
 			return n	#since we have factored out every possible factor, this should be a prime number
+#one could use primefactor to find a prime number because if n is prime, it returns n.
 def primegen(n):
 	#generates all prime numbers upto the n-th prime number
 	c=0	#counter for primes
@@ -152,3 +153,77 @@ def primegen(n):
 			c=c+1
 		if(c==n):
 			return "Done"
+#The following skeleton functions are to illustrate the basic algorithm of generating primes.
+def prime_skeleton(n):	#generate the n-th prime by brute force. Basic skeleton.
+	#A prime is divisible by 1 and itself. Moreover, the largest factor of a number cannot be greater than half of itself. We use both facts to check if a number is prime, by starting with 1 & going upto i/2 to see if any number divides i. If it does, we stop looking further, and skip to the next number. If however there are no factors between 1 & i/2 we have a prime number. This generates the first 10K primes in ~127secs with the print statement, and in 106sec without it.
+	c=0	#counter for primes.
+	i=1
+	while (c<n):
+		i=i+1
+		j=1
+		while(j<=i/2):
+			if(i%j==0):
+				if(j!=1):
+					break
+			if(j==i/2):
+				c=c+1
+				print "#",c,":",i
+			j=j+1
+	return "Done!"#%d:%d"%(c,i)#if you comment out the print statement, and only want the n-th prime, use this.
+def prime_faster_skeleton(n):#If a number is not prime, our method of checking from 1 upward till i/2 immediately skips the number. If, however a number is prime, a lot of time is spent checking from 1 till i/2. We try to eliminate this, by checking from 1->i/2 & from i/2->1 simultaneously. If we meet, and no factors have been found, we have a prime number & we stop.
+	c=0
+	i=1
+	while(c<n):
+		i=i+1
+		j=1
+		k=i/2
+		while(j<=i/2):
+			if(((i%j)==0)&(j!=1)):
+				break
+			if(((i%k)==0)&(k!=1)):
+				break
+			if (k<j):
+				j=i/2
+			if(j==i/2):
+				c=c+1
+				print "#",c,":",i
+				break
+			j=j+1
+			k=k-1
+	return "Done!"
+	#return "#%d:%d"%(c,i)#if you comment out the print statement, and only want the n-th prime, use this.
+#Without the print function it finds the 10,000th prime in 1:54s & with it in 3:15s. So, is it faster?
+
+#These functions now use stored & computed data to find primes. The following function computes primes, and stores them in a list to compute further primes.
+#using lists to find prime numbers.
+#every natural number is completely factorisable in terms of primes smaller than it-self. We are only checking for divisibility & not fatorising a number. So, once a number is divisible, we stop checking.
+#this program will create an integer list of primes.
+def prime_lists(n):
+	primes=[]
+	c=0
+	i=1
+	#first populate the list. & then use it to generate further primes.
+	while (c<n):
+		i=i+1
+		if(i<10):	#this if statement uses the if statement, to activate a while loop to populate the first few elements of the list.
+			j=1
+			while(j<=i/2):
+				if(i%j==0)&(j!=1):
+					break
+				if(j==i/2):
+					primes=primes+[i]
+					c=c+1
+				j=j+1
+		if(i>=10):	#This if statement contains a while loop which checks new numbers against those already in the list to find if they are prime. If they are, they are added to the list.
+			j=0
+			while(j<len(primes)):
+				if(primes[j]>(i/2)):
+					break
+				if(i%primes[j]==0):
+					break
+				j=j+1
+			if(primes[j]>(i/2)):
+				primes=primes+[i]
+				c=c+1
+	return primes[-1]#this returns only the last element of the list. If required, one can return any element or the entire list. One also has a stored list of primes after this function completes.
+	#Finds 10K primes in ~17s. 100k primes in >20min. This is quicker than our previous algorithms because we are checking against lesser numbers. For example, in the previous case even if we checked against 2, we'd check with 4 & then 8 & so on. But, here we check only against a list of co-prime (and also absolutely prime) factors. So, no repetition occurs.
