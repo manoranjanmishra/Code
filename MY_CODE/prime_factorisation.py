@@ -48,5 +48,24 @@ def primefactor_v2(n):
 			i=i-1
 		if(i==1):#then we have a prime number
 			return n	#since we have factored out every possible factor, this should be a prime number
-#A major difference between primefactor & primefactor_v2 is that, in primefactor the largest prime factor is evaluated by factoring out all smaller factors, and then this information is discarded: The number is then divided by the largest prime factor just found, and then process repeated on the remaining number. v2 however realises that all the numbers being factored out are also factors, and should be listed. Moreover, I've said that such factors are all prime. I need a proof of that.
-#print primefactor_v2(int(raw_input()))
+#A major difference between prime-factor & primefactor_v2 is that, in primefactor the largest prime factor is evaluated by factoring out all smaller factors, and then this information is discarded: The number is then divided by the largest prime factor just found, and then process repeated on the remaining number. v2 however realises that all the numbers being factored out are also factors, and should be listed. Moreover, I've said that such factors are all prime. I need a proof of that.
+def primefactor_v3(n):
+	#factors=[]
+	j=1
+	while True:
+		while (n%j==0)&(j!=1):
+			n=n/j
+			#factors=factors+[j]
+			print j
+		if(j>n/j):
+			if(n!=1):
+				#factors=factors+[n]
+				print n
+			break	#we've found the last prime factor
+		j=j+1
+	#return factors
+	return "Done!"
+#This code takes a step further. A major draw back of the above code is that, each time a number is div by a factor, the loop breaks and factorisation resumes at 1. That's because i is set to n/2 and the loop checks from n/2 & n/2-i+1 i.e 1. We change that here, by creating a loop in case something is divisible by a number, the same number is checked again & again, with the parent number being reduced with each pass. Since we sweep from smaller to larger numbers, and try several times with the same number, we get an ascending list of primes, with multiple factors grouped together. Since we don't repeat checking at 1, I'm sure this is faster than the previous methods. The second improvement applies to detecting when to stop checking if the last number is a prime number by applying the p>n/p rule for prime numbers (where p is a number that sweeps from 1 toward n).
+#The use of lists is to store the prime factors, and is optional. You may not store the prime numbers, or perform other operations, or ignore them untill the last factor (the largest prime factor) is found.
+#15447370632440212537=4191649019*3685272923(pepta.net). It took 1h:30m.
+#print primefactor_v3(int(raw_input()))
