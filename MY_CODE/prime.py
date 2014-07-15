@@ -247,3 +247,34 @@ def primegenrtr(n):
 			c=c+1
 	return a	#this will merely return the last prime number.
 #This function computes the first 1,000,000 primes in >25min & 100,000 primes in 1:05s. And, 10k primes in 5s. The 1 millionth prime is 15485863. The 100,000th prime is 1299709. The 10,000th prime is 104729.
+#Method fails miserably if you try to find very large prime numbers. Consider prime numbers above 1000000000000. This method takes over 4s to generate two successive primes. That is because this method checks M numbers for each number N, where M=sqrt(N).
+
+#this function generates a list of numbers first, and removes any numbers that have factors by successively combing the list toward the end.
+def primelists(n):
+	#this function generates all the prime numbers upto the number n.
+	i=2
+	a=[]	#this stores the list of numbers, which we shall reduce to the list pf primes
+	while(i<=n):
+		a.append(i)
+		i=i+1
+	#a=range(2,n+1) would also work instead of the loop above. This would initialise a, and also generate a list of integers from 2 to n.
+	#this while loop will generate a list of numbers from 2 to n (inclusive)
+	i=0
+	while(i<len(a)):
+		j=i+a[i]
+		while(j<len(a))&(a[i]!=0):
+			a[j]=0
+			j=j+a[i]
+		i=i+1
+	#we are left with a list of numbers where every number that is a multiple of a number lesser than it, has been zeroed out.
+	#Since, pop & remove take too much time, we shift the non-zero elements toward the beginning of the list, and then slice off the end.
+	i=0
+	c=0	#counter for primes (the non-zero elements now left in our list)
+	while(i<len(a)):
+		if(a[i]!=0):
+			a[c]=a[i]
+			c=c+1	#count the non-zero elements.. this also points to the index location we can store the next non zero element.
+		i=i+1
+	#since the primes start at 0th position, the last prime is at c-1 th index.. i.e the cth index points beyond the last prime num. But a slice returns all numbers upto the last index excluding it.
+	a=a[:c]	#this slices the list to remove the rest of the elements, since we spanned the entire list & all non-zero elements are inside first c index positions.
+	return a
