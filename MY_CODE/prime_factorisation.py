@@ -58,6 +58,9 @@ def primefactor_v3(n):
 			#factors=factors+[j]
 			print j
 		if(j>n/j):
+			if(n==1):#then there is a repetitive prime factor
+				#factors=factors+[j]
+				print j	#j is the last factor because n=n/j reduced n to 1.
 			if(n!=1):
 				#factors=factors+[n]
 				print n
