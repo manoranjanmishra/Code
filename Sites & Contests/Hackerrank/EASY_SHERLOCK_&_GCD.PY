@@ -8,16 +8,16 @@ while(t>0):
         a[i]=int(a[i])
         i=i+1
     a.sort()
-    i=1
-    f=0
-    h=0
+    i=1	#factor, runs from 1 till the smallest number in a.sor()
+    f=0	#is-divisible flag
+    h=0	#highest dividing factor
     while(i<=a[0]):
-        for j in a:
+        for j in a:	#running through all the elements in the list
             if(j%i==0):
                 f=0
             if(j%i!=0):
                 f=1
-                break
+                break	#no point checking this number with other numbers in the list a, so try with next i
         if(f==0):
             h=i
         i=i+1
@@ -25,5 +25,5 @@ while(t>0):
         print "YES"
     else:
         print "NO"
-    t=t-1
+    t=t-1		#for the test cases
             
